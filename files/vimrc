@@ -54,6 +54,8 @@ Plugin 'junegunn/vim-easy-align'
 Plugin 'rizzatti/dash.vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'terryma/vim-multiple-cursors'
+Plugin 'mileszs/ack.vim'
+
 " All of your Plugins must be added before the following line
 call vundle#end()
 
@@ -187,6 +189,9 @@ let g:snipMate.scope_aliases['ruby'] = 'ruby,ruby-rails,ruby-1.9'
 
 let g:buffergator_viewport_split_policy = 'B'
 let g:buffergator_sort_regime = 'mru'
+
+" The Silver Searcher
+let g:ackprg = 'ag --vimgrep'
 
 noremap <Up> <NOP>
 noremap <Down> <NOP>
