@@ -10,7 +10,11 @@ filetype plugin on
 filetype indent on
 
 set exrc
+
 au BufWritePost .vimrc so $MYVIMRC
+au BufNewFile,BufRead *.coffee set filetype=coffee
+au BufNewFile,BufRead *.slim set ft=slim
+
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -23,6 +27,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-haml'
 Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-rvm'
 Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdtree'
 Plugin 'jeetsukumaran/vim-buffergator'
@@ -33,12 +38,9 @@ Plugin 'nanotech/jellybeans.vim'
 Plugin 'jgdavey/vim-blockle.git'
 Plugin 'vim-scripts/closetag.vim'
 Plugin 'gregsexton/gitv'
-" Plugin 'gabrielelana/vim-markdown'
-Plugin 'jpo/vim-railscasts-theme'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tacahiroy/ctrlp-funky'
 Plugin 'bling/vim-airline'
-Plugin 'stefanoverna/vim-i18n'
 Plugin 'szw/vim-tags'
 Plugin 'thoughtbot/vim-rspec'
 Plugin 'garbas/vim-snipmate'
@@ -55,6 +57,18 @@ Plugin 'rizzatti/dash.vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'mileszs/ack.vim'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'metakirby5/codi.vim'
+Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx.git'
+" Themes
+Plugin 'altercationvim-colors-solarized'
+Plugin 'chriskempson/base16-vim'
+Plugin 'dracula/vim'
+Plugin 'jpo/vim-railscasts-theme'
+Plugin 'junegunn/seoul256.vim'
+Plugin 'morhetz/gruvbox'
+Plugin 'vim-airline/vim-airline-themes'
 
 " All of your Plugins must be added before the following line
 call vundle#end()
@@ -73,10 +87,10 @@ set listchars=tab:▸\ ,trail:·,eol:¬,nbsp:_,extends:❯,precedes:❮
 " set nostartofline
 set t_Co=256
 set background=dark
-" colorscheme railscasts
-colorscheme jellybeans
-set guifont=Droid\ Sans\ Mono\ for\ Powerline:h16
+colorscheme dracula
+
 set number
+set relativenumber
 set numberwidth=5
 
 syntax enable
@@ -126,7 +140,7 @@ set showcmd                     " display incomplete commands
 set history=100                 " a ton of history
 
 " Default shell and shell syntax and source ~/.bash_profile
-set shell=/bin/zsh\ --login
+set shell=/bin/sh
 " let g:is_bash=1
 
 " Whitespace
@@ -152,6 +166,8 @@ set shortmess=atI
 
 " remove search highlighting
 nnoremap <leader>h :noh<cr>
+" json beautifier with jq (https://github.com/stedolan/jq)
+nnoremap <Leader>z :%!jq '.'<CR>
 
 set ruler
 set cursorline
@@ -161,9 +177,6 @@ set endofline
 " Make it obvious where 80 characters is
 set textwidth=80
 set colorcolumn=+1
-" Set the guifont
-" set guifont=Monaco:h14
-" map <C-n> :NERDTreeToggle<CR>
 set go-=L
 " autocmd User Rails let b:surround_{char2nr('-')} = "<% \r %>" " displays <% %> correctly
 
@@ -176,7 +189,7 @@ let g:airline_theme = 'molokai'
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
-let g:syntastic_ruby_mri_exe='~/.rvm/rubies/ruby-2.2.3/bin/ruby'
+let g:syntastic_ruby_mri_exe='~/.rvm/rubies/ruby-2.3.3/bin/ruby'
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
@@ -190,6 +203,8 @@ let g:snipMate.scope_aliases['ruby'] = 'ruby,ruby-rails,ruby-1.9'
 
 let g:buffergator_viewport_split_policy = 'B'
 let g:buffergator_sort_regime = 'mru'
+
+let g:rspec_runner = "os_x_iterm2"
 
 " The Silver Searcher
 let g:ackprg = 'ag --vimgrep'
@@ -210,6 +225,8 @@ nnoremap <Leader>fu :CtrlPFunky<Cr>
 " narrow the list down with a word under cursor
 nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
 
+nmap ; :
+
 " Allow to copy/paste between VIM instances
 " copy the current visual selection to ~/.vbuf
 vmap <Leader>y :w! ~/.vbuf<CR>
@@ -217,6 +234,22 @@ vmap <Leader>y :w! ~/.vbuf<CR>
 nmap <Leader>y :.w! ~/.vbuf<CR>
 " paste the contents of the buffer file
 nmap <Leader>p :r ~/.vbuf<CR>
-" vim-i18n
-vmap <Leader>z :call I18nTranslateString()<CR>
-vmap <Leader>dt :call I18nDisplayTranslation()<CR>
+
+" open ag.vim
+nnoremap <leader>a :Ack
+
+" vim-rspec mappings
+nnoremap <Leader>t :call RunCurrentSpecFile()<CR>
+nnoremap <Leader>s :call RunNearestSpec()<CR>
+nnoremap <Leader>l :call RunLastSpec()<CR>
+
+" move selected block up/down in Visual block mode
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+
+" vim-jsx
+let g:jsx_pragma_required = 1
+
+" html2haml
+nmap <leader>m :%!html2haml --erb 2> /dev/null<CR>:set ft=haml<CR>
+vmap <leader>m :!html2haml --erb 2> /dev/null<CR>
