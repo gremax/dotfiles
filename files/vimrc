@@ -61,8 +61,9 @@ Plugin 'kchmck/vim-coffee-script'
 Plugin 'metakirby5/codi.vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx.git'
+Plugin 'ngmy/vim-rubocop'
 " Themes
-Plugin 'altercationvim-colors-solarized'
+Plugin 'altercation/vim-colors-solarized'
 Plugin 'chriskempson/base16-vim'
 Plugin 'dracula/vim'
 Plugin 'jpo/vim-railscasts-theme'
@@ -208,6 +209,9 @@ let g:rspec_runner = "os_x_iterm2"
 
 " The Silver Searcher
 let g:ackprg = 'ag --vimgrep'
+
+" Rubocop
+let g:vimrubocop_config = '~/.rubocop.yml'
 
 noremap <Up> <NOP>
 noremap <Down> <NOP>
