@@ -1,0 +1,6 @@
+---
+- hosts: all
+  tasks:
+    - file: src=~/.dotfiles/files/{{ item }} dest=~/.{{ item }} state=link
+      with_items:
+        - tmux.conf

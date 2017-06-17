@@ -1,4 +1,8 @@
-vim:
-	ansible-playbook vim.yml -i local -vv
+all:
+	ansible-playbook all.yml -i local -vv -K
 
-update_plugins: vim
+tmux:
+	ansible-playbook tmux.yml -i local -vv -K
+
+vim:
+	ansible-playbook vim.yml -i local -vv -K
