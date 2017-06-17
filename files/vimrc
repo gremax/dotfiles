@@ -15,64 +15,62 @@ au BufWritePost .vimrc so $MYVIMRC
 au BufNewFile,BufRead *.coffee set filetype=coffee
 au BufNewFile,BufRead *.slim set ft=slim
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.Vim'
-Plugin 'tpope/vim-sensible'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-commentary'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-haml'
-Plugin 'tpope/vim-rails'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-rvm'
-Plugin 'scrooloose/syntastic'
-Plugin 'scrooloose/nerdtree'
-Plugin 'jeetsukumaran/vim-buffergator'
-Plugin 'dockyard/vim-easydir'
-Plugin 'vim-ruby/vim-ruby'
-Plugin 'guns/xterm-color-table.vim'
-Plugin 'nanotech/jellybeans.vim'
-Plugin 'jgdavey/vim-blockle.git'
-Plugin 'vim-scripts/closetag.vim'
-Plugin 'gregsexton/gitv'
-Plugin 'kien/ctrlp.vim'
-Plugin 'tacahiroy/ctrlp-funky'
-Plugin 'bling/vim-airline'
-Plugin 'szw/vim-tags'
-Plugin 'thoughtbot/vim-rspec'
-Plugin 'garbas/vim-snipmate'
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
-Plugin 'honza/vim-snippets'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'benmills/vimux'
-Plugin 'jgdavey/vim-turbux'
-Plugin 'danchoi/ri.vim'
-Plugin 'junegunn/vim-easy-align'
-" Plugin 'slim-template/vim-slim'
-Plugin 'rizzatti/dash.vim'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'mileszs/ack.vim'
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'metakirby5/codi.vim'
-Plugin 'pangloss/vim-javascript'
-Plugin 'mxw/vim-jsx.git'
-Plugin 'ngmy/vim-rubocop'
+call plug#begin()
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-haml'
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-rvm'
+Plug 'scrooloose/syntastic'
+Plug 'scrooloose/nerdtree'
+Plug 'jeetsukumaran/vim-buffergator'
+Plug 'dockyard/vim-easydir'
+Plug 'vim-ruby/vim-ruby'
+Plug 'guns/xterm-color-table.vim'
+Plug 'jgdavey/vim-blockle'
+Plug 'vim-scripts/closetag.vim'
+Plug 'gregsexton/gitv'
+Plug 'kien/ctrlp.vim'
+Plug 'tacahiroy/ctrlp-funky'
+Plug 'bling/vim-airline'
+Plug 'szw/vim-tags'
+Plug 'thoughtbot/vim-rspec'
+Plug 'garbas/vim-snipmate'
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'tomtom/tlib_vim'
+Plug 'honza/vim-snippets'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'benmills/vimux'
+Plug 'jgdavey/vim-turbux'
+Plug 'danchoi/ri.vim'
+Plug 'junegunn/vim-easy-align'
+Plug 'slim-template/vim-slim'
+Plug 'rizzatti/dash.vim'
+Plug 'airblade/vim-gitgutter'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'mileszs/ack.vim'
+Plug 'kchmck/vim-coffee-script'
+Plug 'metakirby5/codi.vim'
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
+Plug 'ngmy/vim-rubocop'
+Plug 'diepm/vim-rest-console'
 " Themes
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'chriskempson/base16-vim'
-Plugin 'dracula/vim'
-Plugin 'jpo/vim-railscasts-theme'
-Plugin 'junegunn/seoul256.vim'
-Plugin 'morhetz/gruvbox'
-Plugin 'vim-airline/vim-airline-themes'
+Plug 'nanotech/jellybeans.vim'
+Plug 'altercation/vim-colors-solarized'
+Plug 'ryanoasis/vim-devicons'
+Plug 'chriskempson/base16-vim'
+Plug 'dracula/vim'
+Plug 'jpo/vim-railscasts-theme'
+Plug 'junegunn/seoul256.vim'
+Plug 'morhetz/gruvbox'
+Plug 'vim-airline/vim-airline-themes'
 
 " All of your Plugins must be added before the following line
-call vundle#end()
+call plug#end()
 
 " Invisible characters
 set list
@@ -88,7 +86,7 @@ set listchars=tab:▸\ ,trail:·,eol:¬,nbsp:_,extends:❯,precedes:❮
 " set nostartofline
 set t_Co=256
 set background=dark
-colorscheme dracula
+colorscheme gruvbox
 
 set number
 set relativenumber
