@@ -1,6 +1,6 @@
 let mapleader=","
 set encoding=utf-8 nobomb
-autocmd!
+autocmd! BufWritePost * Neomake
 
 " be iMproved
 set nocompatible
@@ -16,60 +16,64 @@ au BufNewFile,BufRead *.coffee set filetype=coffee
 au BufNewFile,BufRead *.slim set ft=slim
 
 call plug#begin()
-Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-surround'
+Plug 'airblade/vim-gitgutter'
+Plug 'benmills/vimux'
+Plug 'bling/vim-airline'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'danchoi/ri.vim'
+Plug 'diepm/vim-rest-console'
+Plug 'dockyard/vim-easydir'
+Plug 'garbas/vim-snipmate'
+Plug 'gregsexton/gitv'
+Plug 'guns/xterm-color-table.vim'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'honza/vim-snippets'
+Plug 'jeetsukumaran/vim-buffergator'
+Plug 'junegunn/fzf.vim'
+Plug 'jgdavey/vim-blockle'
+Plug 'jgdavey/vim-turbux'
+Plug 'johngrib/vim-game-code-break'
+Plug 'junegunn/vim-easy-align'
+Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
+Plug 'kien/ctrlp.vim'
+Plug 'leafgarland/typescript-vim'
+Plug 'marcweber/vim-addon-mw-utils'
+Plug 'metakirby5/codi.vim'
+Plug 'mileszs/ack.vim'
+Plug 'mxw/vim-jsx'
+Plug 'neomake/neomake'
+Plug 'ngmy/vim-rubocop'
+Plug 'pangloss/vim-javascript'
+Plug 'rhysd/vim-crystal'
+Plug 'rizzatti/dash.vim'
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'slim-template/vim-slim', { 'for': 'slim' }
+Plug 'szw/vim-tags'
+Plug 'tacahiroy/ctrlp-funky'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'thoughtbot/vim-rspec'
+" Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'tomtom/tlib_vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-haml'
+Plug 'tpope/vim-haml', { 'for': 'haml' }
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-rvm'
-Plug 'scrooloose/syntastic'
-Plug 'scrooloose/nerdtree'
-Plug 'jeetsukumaran/vim-buffergator'
-Plug 'dockyard/vim-easydir'
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-surround'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-ruby/vim-ruby'
-Plug 'guns/xterm-color-table.vim'
-Plug 'jgdavey/vim-blockle'
 Plug 'vim-scripts/closetag.vim'
-Plug 'gregsexton/gitv'
-Plug 'kien/ctrlp.vim'
-Plug 'tacahiroy/ctrlp-funky'
-Plug 'bling/vim-airline'
-Plug 'szw/vim-tags'
-Plug 'thoughtbot/vim-rspec'
-Plug 'garbas/vim-snipmate'
-Plug 'MarcWeber/vim-addon-mw-utils'
-Plug 'tomtom/tlib_vim'
-Plug 'honza/vim-snippets'
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'benmills/vimux'
-Plug 'jgdavey/vim-turbux'
-Plug 'danchoi/ri.vim'
-Plug 'junegunn/vim-easy-align'
-Plug 'slim-template/vim-slim'
-Plug 'rizzatti/dash.vim'
-Plug 'airblade/vim-gitgutter'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'mileszs/ack.vim'
-Plug 'kchmck/vim-coffee-script'
-Plug 'metakirby5/codi.vim'
-Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
-Plug 'ngmy/vim-rubocop'
-Plug 'diepm/vim-rest-console'
 " Themes
-Plug 'nanotech/jellybeans.vim'
 Plug 'altercation/vim-colors-solarized'
-Plug 'ryanoasis/vim-devicons'
 Plug 'chriskempson/base16-vim'
 Plug 'dracula/vim'
 Plug 'jpo/vim-railscasts-theme'
 Plug 'junegunn/seoul256.vim'
 Plug 'morhetz/gruvbox'
-Plug 'vim-airline/vim-airline-themes'
-
-" All of your Plugins must be added before the following line
+Plug 'nanotech/jellybeans.vim'
+Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
 " Invisible characters
@@ -163,11 +167,6 @@ set tagbsearch                  " use binary searching for tags
 " The "Press ENTER or type command to continue" prompt is jarring and usually unnecessary.
 set shortmess=atI
 
-" remove search highlighting
-nnoremap <leader>h :noh<cr>
-" json beautifier with jq (https://github.com/stedolan/jq)
-nnoremap <Leader>z :%!jq '.'<CR>
-
 set ruler
 set cursorline
 set nowrap
@@ -180,19 +179,8 @@ set go-=L
 " autocmd User Rails let b:surround_{char2nr('-')} = "<% \r %>" " displays <% %> correctly
 
 " Switch between the last two files
-nnoremap <leader><leader> <c-^>
 let g:airline_powerline_fonts = 1
-let g:airline_theme = 'molokai'
-
-" Syntastic Plugin
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_ruby_mri_exe='~/.rvm/rubies/ruby-2.3.3/bin/ruby'
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+let g:airline_theme = 'gruvbox'
 
 " ruby path for RVM
 let g:ruby_path = system('rvm current')
@@ -203,6 +191,7 @@ let g:snipMate.scope_aliases['ruby'] = 'ruby,ruby-rails,ruby-1.9'
 let g:buffergator_viewport_split_policy = 'B'
 let g:buffergator_sort_regime = 'mru'
 
+let g:rspec_command = '!bundle exec rspec {spec}'
 let g:rspec_runner = "os_x_iterm2"
 
 " The Silver Searcher
@@ -216,12 +205,21 @@ noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
 
+" remove search highlighting
+nnoremap <Leader>h :noh<cr>
+" json beautifier with jq (https://github.com/stedolan/jq)
+nnoremap <Leader>z :%!jq '.'<CR>
+
 " Toggle paste mode
 nmap <silent> <F4> :set invpaste<CR>:set paste?<CR>
 imap <silent> <F4> <ESC>:set invpaste<CR>:set paste?<CR>
 
 nmap <C-\> :NERDTreeFind<CR>
-nmap <silent> <leader><leader> :NERDTreeToggle<CR>
+nmap <silent> <Leader><Leader> :NERDTreeToggle<CR>
+
+" CtrlP
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
+let g:webdevicons_enable_ctrlp = 1
 
 nnoremap <Leader>fu :CtrlPFunky<Cr>
 " narrow the list down with a word under cursor
@@ -250,8 +248,8 @@ vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 
 " vim-jsx
-let g:jsx_pragma_required = 1
+let g:jsx_ext_required = 0
 
 " html2haml
-nmap <leader>m :%!html2haml --erb 2> /dev/null<CR>:set ft=haml<CR>
-vmap <leader>m :!html2haml --erb 2> /dev/null<CR>
+nmap <Leader>m :%!html2haml --erb 2> /dev/null<CR>:set ft=haml<CR>
+vmap <Leader>m :!html2haml --erb 2> /dev/null<CR>
