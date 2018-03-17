@@ -1,0 +1,148 @@
+" ================ Plugins ==================== {{{
+"
+call plug#begin('~/.vim/plugged')
+Plug '/usr/local/opt/fzf'
+Plug 'airblade/vim-gitgutter'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'junegunn/fzf.vim'
+Plug 'mhinz/vim-grepper'
+Plug 'neomake/neomake'
+Plug 'scrooloose/nerdtree'
+Plug 'sheerun/vim-polyglot'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'thoughtbot/vim-rspec'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rails'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+" Colorschemes
+Plug 'morhetz/gruvbox'
+call plug#end()
+"}}}
+"
+" ================ General Config ==================== {{{
+"
+let g:mapleader = ","                                                           " Change leader to a comma
+
+" set gdefault                                                                    " Set global flag for search and replace
+" set showcmd                                                                     " Show incomplete cmds down the bottom
+set background=dark                                                             " Background color
+set cursorline                                                                  " Highlight current line
+set exrc                                                                        " Allow using local vimrc
+set fileencoding=utf-8                                                          " Set utf-8 encoding on write
+set fillchars+=vert:\│                                                          " Make vertical split separator full line
+set gcr=a:blinkon500-blinkwait500-blinkoff500                                   " Set cursor blinking rate
+set grepprg=rg\ --vimgrep                                                       " Use ripgrep for grepping
+set hidden                                                                      " Hide buffers in background
+set history=500                                                                 " Store lots of :cmdline history
+set ignorecase                                                                  " case insensitive search
+set inccommand=nosplit                                                          " Show substitute changes immidiately in separate split
+set lazyredraw                                                                  " Do not redraw on registers and macros
+set linebreak                                                                   " Wrap lines at convenient points
+set list                                                                        " Enable listchars
+set listchars=tab:▸\ ,trail:·,eol:¬,nbsp:_,extends:❯,precedes:❮                 " Set trails for tabs and spaces
+set nostartofline                                                               " Jump to first non-blank character
+set nowrap                                                                      " Disable word wrap
+set number                                                                      " Line numbers are good
+set path+=**                                                                    " Allow recursive search
+set relativenumber                                                              " Show numbers relative to current line
+set secure                                                                      " Forbid autocmd in local vimrc
+set showmatch                                                                   " Highlight matching bracket
+set smartcase                                                                   " Smart case search if there is uppercase
+set splitbelow                                                                  " Set up new horizontal splits positions
+set splitright                                                                  " Set up new vertical splits positions
+set tagcase=smart                                                               " Use smarcase for tags
+set timeoutlen=1000 ttimeoutlen=0                                               " Reduce Command timeout for faster escape and O
+set updatetime=500                                                              " Cursor hold timeout
+
+silent! colorscheme gruvbox
+"}}}
+"
+" ================ Turn Off Swap Files ============== {{{
+"
+set nobackup
+set noswapfile
+set nowb
+" }}}
+"
+" ================ Persistent Undo ================== {{{
+"
+" Keep undo history across sessions, by storing in file
+silent !mkdir ~/.vim/backups > /dev/null 2>&1
+set undodir=~/.vim/backups
+set undofile
+" }}}
+"
+" ================ Indentation ====================== {{{
+"
+set colorcolumn=80
+set expandtab
+set foldmethod=syntax
+set nofoldenable
+set shiftwidth=2
+set smartindent
+set softtabstop=2
+set tabstop=2
+" }}}
+"
+" ================ Auto commands ====================== {{{
+"
+augroup vimrc
+  autocmd!
+augroup END
+
+autocmd vimrc BufReadPost,BufWritePost * Neomake                                " Run NeoMake on read and write operations
+autocmd vimrc BufWritePost .vimrc so $MYVIMRC                                   " Reload .vimrc on save
+autocmd vimrc FocusGained,BufEnter * checktime                                  " Refresh file when vim gets focus
+autocmd vimrc InsertEnter * :set nocul                                          " Remove cursorline highlight
+autocmd vimrc InsertLeave * :set cul                                            " Add cursorline highlight in normal mode
+
+" }}}
+"
+" ================ Custom mappings ======================== {{{
+"
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
+
+" Find current file in NERDTree
+nnoremap <Leader>hf :NERDTreeFind<CR>
+" Open NERDTree
+nnoremap <Space><Space> :NERDTreeToggle<CR>
+
+" Clear search highlight
+nnoremap <Leader>h :noh<CR>
+
+" Toggle buffer list
+nnoremap <C-p> :Files<CR>
+nnoremap <C-x> :Buffers<CR>
+
+" Toggle Grepper
+nnoremap <Leader>a :Grepper -tool ag<CR>
+
+" Toggle paste mode
+nmap <silent> <F4> :set invpaste<CR>:set paste?<CR>
+imap <silent> <F4> <ESC>:set invpaste<CR>:set paste?<CR>
+
+" Allow to copy/paste between VIM instances
+" copy the current visual selection to ~/.vbuf
+vmap <Leader>y :w! ~/.vbuf<CR>¬
+" copy the current line to the buffer file if no visual selection
+nmap <Leader>y :.w! ~/.vbuf<CR>¬
+" paste the contents of the buffer file¬
+nmap <Leader>p :r ~/.vbuf<CR>¬
+" }}}
+"
+" ================ Plugins setups ======================== {{{
+"
+let g:NERDTreeChDirMode = 2                                                     "Always change the root directory
+let g:NERDTreeMinimalUI = 1                                                     "Disable help text and bookmark title
+let g:NERDTreeShowHidden = 1                                                    "Show hidden files in NERDTree
+
+let g:airline_powerline_fonts = 1
+let g:airline_theme = 'gruvbox'
+
+let g:gruvbox_contrast_dark = 'soft'
+" }}}
