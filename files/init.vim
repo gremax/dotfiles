@@ -4,6 +4,7 @@ call plug#begin('~/.vim/plugged')
 Plug '/usr/local/opt/fzf'
 Plug 'airblade/vim-gitgutter'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'diepm/vim-rest-console'
 Plug 'junegunn/fzf.vim'
 Plug 'mhinz/vim-grepper'
 Plug 'neomake/neomake'
@@ -37,7 +38,9 @@ set grepprg=rg\ --vimgrep                                                       
 set hidden                                                                      " Hide buffers in background
 set history=500                                                                 " Store lots of :cmdline history
 set ignorecase                                                                  " case insensitive search
-set inccommand=nosplit                                                          " Show substitute changes immidiately in separate split
+if has('nvim')
+  set inccommand=nosplit                                                          " Show substitute changes immidiately in separate split
+end
 set lazyredraw                                                                  " Do not redraw on registers and macros
 set linebreak                                                                   " Wrap lines at convenient points
 set list                                                                        " Enable listchars
@@ -145,4 +148,9 @@ let g:airline_powerline_fonts = 1
 let g:airline_theme = 'gruvbox'
 
 let g:gruvbox_contrast_dark = 'soft'
+
+" vim-rest-console
+let g:vrc_curl_opts = {
+  \ '-i': ''
+\}
 " }}}
