@@ -7,6 +7,7 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'diepm/vim-rest-console'
 Plug 'junegunn/fzf.vim'
 Plug 'mhinz/vim-grepper'
+Plug 'mhinz/vim-startify'
 Plug 'neomake/neomake'
 Plug 'scrooloose/nerdtree'
 Plug 'sheerun/vim-polyglot'
@@ -156,4 +157,8 @@ let g:vrc_curl_opts = {
 
 " vim-gitgutter
 set updatetime=250
+
+" vim-startify
+let g:startify_bookmarks = [ {'c': '~/.vimrc'}, '~/.config/fish/config.fish' ]
+
 " }}}
