@@ -153,4 +153,7 @@ let g:gruvbox_contrast_dark = 'soft'
 let g:vrc_curl_opts = {
   \ '-i': ''
 \}
+
+" vim-gitgutter
+set updatetime=250
 " }}}
