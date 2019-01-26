@@ -52,6 +52,7 @@ set number                                                                      
 set path+=**                                                                    " Allow recursive search
 set relativenumber                                                              " Show numbers relative to current line
 set secure                                                                      " Forbid autocmd in local vimrc
+set shell=/bin/bash
 set showmatch                                                                   " Highlight matching bracket
 set smartcase                                                                   " Smart case search if there is uppercase
 set splitbelow                                                                  " Set up new horizontal splits positions
@@ -161,4 +162,12 @@ set updatetime=250
 " vim-startify
 let g:startify_bookmarks = [ {'c': '~/.vimrc'}, '~/.config/fish/config.fish' ]
 
+" RSpec.vim settings
+let g:rspec_command = "!bundle exec rspec {spec}"
+
+" RSpec.vim mappings
+map <Leader>t :call RunCurrentSpecFile()<CR>
+map <Leader>s :call RunNearestSpec()<CR>
+map <Leader>l :call RunLastSpec()<CR>
+" map <Leader>a :call RunAllSpecs()<CR>
 " }}}
