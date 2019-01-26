@@ -1,6 +1,5 @@
 let mapleader=","
 set encoding=utf-8 nobomb
-autocmd! BufWritePost * Neomake
 
 " be iMproved
 set nocompatible
@@ -16,6 +15,7 @@ au BufNewFile,BufRead *.coffee set filetype=coffee
 au BufNewFile,BufRead *.slim set ft=slim
 
 call plug#begin()
+Plug '/usr/local/opt/fzf'
 Plug 'airblade/vim-gitgutter'
 Plug 'benmills/vimux'
 Plug 'bling/vim-airline'
@@ -23,48 +23,46 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'danchoi/ri.vim'
 Plug 'diepm/vim-rest-console'
 Plug 'dockyard/vim-easydir'
+Plug 'epilande/vim-es2015-snippets'
+Plug 'epilande/vim-react-snippets'
 Plug 'garbas/vim-snipmate'
 Plug 'gregsexton/gitv'
 Plug 'guns/xterm-color-table.vim'
-Plug 'hail2u/vim-css3-syntax'
 Plug 'honza/vim-snippets'
-Plug 'jeetsukumaran/vim-buffergator'
+Plug 'jlanzarotta/bufexplorer'
 Plug 'junegunn/fzf.vim'
 Plug 'jgdavey/vim-blockle'
 Plug 'jgdavey/vim-turbux'
 Plug 'johngrib/vim-game-code-break'
 Plug 'junegunn/vim-easy-align'
-Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 Plug 'kien/ctrlp.vim'
 Plug 'leafgarland/typescript-vim'
+Plug 'majutsushi/tagbar'
 Plug 'marcweber/vim-addon-mw-utils'
 Plug 'metakirby5/codi.vim'
 Plug 'mileszs/ack.vim'
-Plug 'mxw/vim-jsx'
-Plug 'neomake/neomake'
-Plug 'ngmy/vim-rubocop'
-Plug 'pangloss/vim-javascript'
-Plug 'rhysd/vim-crystal'
+Plug 'sheerun/vim-polyglot'
 Plug 'rizzatti/dash.vim'
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'slim-template/vim-slim', { 'for': 'slim' }
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'sirver/ultisnips'
 Plug 'szw/vim-tags'
 Plug 'tacahiroy/ctrlp-funky'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'thoughtbot/vim-rspec'
 " Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'tomtom/tlib_vim'
+Plug 'townk/vim-autoclose'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-haml', { 'for': 'haml' }
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-rvm'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'vim-ruby/vim-ruby'
+" Plug 'vim-ruby/vim-ruby'
 Plug 'vim-scripts/closetag.vim'
+Plug 'w0rp/ale'
 " Themes
 Plug 'altercation/vim-colors-solarized'
 Plug 'chriskempson/base16-vim'
@@ -181,6 +179,7 @@ set go-=L
 " Switch between the last two files
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'gruvbox'
+let g:airline#extensions#ale#enabled = 1
 
 " ruby path for RVM
 let g:ruby_path = system('rvm current')
@@ -190,15 +189,6 @@ let g:snipMate.scope_aliases['ruby'] = 'ruby,ruby-rails,ruby-1.9'
 
 let g:buffergator_viewport_split_policy = 'B'
 let g:buffergator_sort_regime = 'mru'
-
-let g:rspec_command = '!bundle exec rspec {spec}'
-let g:rspec_runner = "os_x_iterm2"
-
-" The Silver Searcher
-let g:ackprg = 'ag --vimgrep'
-
-" Rubocop
-let g:vimrubocop_config = '~/.rubocop.yml'
 
 noremap <Up> <NOP>
 noremap <Down> <NOP>
@@ -215,17 +205,14 @@ nmap <silent> <F4> :set invpaste<CR>:set paste?<CR>
 imap <silent> <F4> <ESC>:set invpaste<CR>:set paste?<CR>
 
 nmap <C-\> :NERDTreeFind<CR>
-nmap <silent> <Leader><Leader> :NERDTreeToggle<CR>
-
-" CtrlP
-let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
-let g:webdevicons_enable_ctrlp = 1
+" nmap <silent> <Leader><Leader> :NERDTreeToggle<CR>
+nmap <silent> <Space> :NERDTreeToggle<CR>
 
 nnoremap <Leader>fu :CtrlPFunky<Cr>
 " narrow the list down with a word under cursor
 nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
 
-nmap ; :
+" nmap ; :
 
 " Allow to copy/paste between VIM instances
 " copy the current visual selection to ~/.vbuf
@@ -238,6 +225,8 @@ nmap <Leader>p :r ~/.vbuf<CR>
 " open ag.vim
 nnoremap <leader>a :Ack
 
+nmap <F8> :TagbarToggle<CR>
+
 " vim-rspec mappings
 nnoremap <Leader>t :call RunCurrentSpecFile()<CR>
 nnoremap <Leader>s :call RunNearestSpec()<CR>
@@ -247,9 +236,34 @@ nnoremap <Leader>l :call RunLastSpec()<CR>
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 
-" vim-jsx
-let g:jsx_ext_required = 0
+" Plugins Settings
+"
+" CtrlP
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|bundle'
+let g:webdevicons_enable_ctrlp = 1
+
+" vim-rest-console
+let g:vrc_curl_opts = {
+  \ '-i': ''
+\}
+
+" vim-gitgutter
+set updatetime=250
 
 " html2haml
 nmap <Leader>m :%!html2haml --erb 2> /dev/null<CR>:set ft=haml<CR>
 vmap <Leader>m :!html2haml --erb 2> /dev/null<CR>
+
+let g:rspec_command = '!bundle exec rspec {spec}'
+let g:rspec_runner = "os_x_iterm2"
+
+" The Silver Searcher
+let g:ackprg = 'ag --vimgrep'
+
+" ultisnips
+let g:UltiSnipsExpandTrigger='<tab>'
+let g:UltiSnipsJumpForwardTrigger='<c-b>'
+let g:UltiSnipsJumpBackwardTrigger='<c-z>'
+
+" fzf
+nnoremap <leader>o :Files<cr>
