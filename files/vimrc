@@ -1,246 +1,157 @@
-let mapleader=","
-set encoding=utf-8 nobomb
+set encoding=utf-8
 
-" be iMproved
-set nocompatible
-" set noshowmode
-
-filetype plugin on
-filetype indent on
-
-set exrc
-
-au BufWritePost .vimrc so $MYVIMRC
-au BufNewFile,BufRead *.coffee set filetype=coffee
-au BufNewFile,BufRead *.slim set ft=slim
-
-call plug#begin()
+" ================ Plugins ==================== {{{
+"
+call plug#begin('~/.vim/plugged')
 Plug '/usr/local/opt/fzf'
 Plug 'airblade/vim-gitgutter'
-Plug 'benmills/vimux'
-Plug 'bling/vim-airline'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'danchoi/ri.vim'
 Plug 'diepm/vim-rest-console'
-Plug 'dockyard/vim-easydir'
-Plug 'epilande/vim-es2015-snippets'
-Plug 'epilande/vim-react-snippets'
-Plug 'garbas/vim-snipmate'
-Plug 'gregsexton/gitv'
-Plug 'guns/xterm-color-table.vim'
-Plug 'honza/vim-snippets'
-Plug 'jlanzarotta/bufexplorer'
 Plug 'junegunn/fzf.vim'
-Plug 'jgdavey/vim-blockle'
-Plug 'jgdavey/vim-turbux'
-Plug 'johngrib/vim-game-code-break'
-Plug 'junegunn/vim-easy-align'
-Plug 'kien/ctrlp.vim'
-Plug 'leafgarland/typescript-vim'
-Plug 'majutsushi/tagbar'
-Plug 'marcweber/vim-addon-mw-utils'
-Plug 'metakirby5/codi.vim'
-Plug 'mileszs/ack.vim'
+Plug 'mhinz/vim-grepper'
+Plug 'mhinz/vim-startify'
+Plug 'neomake/neomake'
+Plug 'scrooloose/nerdtree'
 Plug 'sheerun/vim-polyglot'
-Plug 'rizzatti/dash.vim'
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-Plug 'sirver/ultisnips'
-Plug 'szw/vim-tags'
-Plug 'tacahiroy/ctrlp-funky'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'thoughtbot/vim-rspec'
-" Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'tomtom/tlib_vim'
-Plug 'townk/vim-autoclose'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rails'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-rvm'
-Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-surround'
+Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-" Plug 'vim-ruby/vim-ruby'
-Plug 'vim-scripts/closetag.vim'
-Plug 'w0rp/ale'
-" Themes
-Plug 'altercation/vim-colors-solarized'
-Plug 'chriskempson/base16-vim'
-Plug 'dracula/vim'
-Plug 'jpo/vim-railscasts-theme'
-Plug 'junegunn/seoul256.vim'
+" Colorschemes
 Plug 'morhetz/gruvbox'
-Plug 'nanotech/jellybeans.vim'
-Plug 'ryanoasis/vim-devicons'
 call plug#end()
+"}}}
+"
+" ================ General Config ==================== {{{
+"
+let g:mapleader = ","                                                           " Change leader to a comma
 
-" Invisible characters
-set list
-set listchars=tab:▸\ ,trail:·,eol:¬,nbsp:_,extends:❯,precedes:❮
+" set gdefault                                                                    " Set global flag for search and replace
+" set showcmd                                                                     " Show incomplete cmds down the bottom
+set background=dark                                                             " Background color
+set cursorline                                                                  " Highlight current line
+set exrc                                                                        " Allow using local vimrc
+set fileencoding=utf-8                                                          " Set utf-8 encoding on write
+set fillchars+=vert:\│                                                          " Make vertical split separator full line
+set gcr=a:blinkon500-blinkwait500-blinkoff500                                   " Set cursor blinking rate
+set grepprg=rg\ --vimgrep                                                       " Use ripgrep for grepping
+set hidden                                                                      " Hide buffers in background
+set history=500                                                                 " Store lots of :cmdline history
+set ignorecase                                                                  " case insensitive search
+if has('nvim')
+  set inccommand=nosplit                                                          " Show substitute changes immidiately in separate split
+end
+set lazyredraw                                                                  " Do not redraw on registers and macros
+set linebreak                                                                   " Wrap lines at convenient points
+set list                                                                        " Enable listchars
+set listchars=tab:▸\ ,trail:·,eol:¬,nbsp:_,extends:❯,precedes:❮                 " Set trails for tabs and spaces
+set nostartofline                                                               " Jump to first non-blank character
+set nowrap                                                                      " Disable word wrap
+set number                                                                      " Line numbers are good
+set path+=**                                                                    " Allow recursive search
+set relativenumber                                                              " Show numbers relative to current line
+set secure                                                                      " Forbid autocmd in local vimrc
+set shell=/bin/bash
+set showmatch                                                                   " Highlight matching bracket
+set smartcase                                                                   " Smart case search if there is uppercase
+set splitbelow                                                                  " Set up new horizontal splits positions
+set splitright                                                                  " Set up new vertical splits positions
+set tagcase=smart                                                               " Use smarcase for tags
+set timeoutlen=1000 ttimeoutlen=0                                               " Reduce Command timeout for faster escape and O
+set updatetime=500                                                              " Cursor hold timeout
 
-" Syntax coloring lines that are too long just slows down the world
-" set synmaxcol=1200
-
-" Use only 1 space after "." when joining lines instead of 2
-" set nojoinspaces
-
-" Don't reset cursor to start of line when moving around
-" set nostartofline
-set t_Co=256
-set background=dark
-colorscheme gruvbox
-
-set number
-set relativenumber
-set numberwidth=5
-
-syntax enable
-syntax sync fromstart
-
-set hlsearch                    " highlight the search
-set ls=2                        " show a status line even if there's only one window
-
-" Improve vim's scrolling speed
-set ttyfast
-set ttyscroll=3
-set lazyredraw
-
-set wildmenu                    " show completion on the mode-line
-set linespace=0                 " number of pixels between the lines
-set splitright                  " open vertical splits on the right
-set splitbelow                  " open the horizontal split below
-" set wrap                        " wrap long lines
-set linebreak                   " break lines at word end
-set nobackup                    " don't want no backup files
-set nowritebackup               " don't make a backup before overwriting a file
-set noswapfile                  " no swap files
-set hidden                      " hide buffers when abandoned
-
-" Time out on key codes but not mappings
-set notimeout
-set ttimeout
-set ttimeoutlen=100
-
-" Auto-reload buffers when files are changed on disk
-set autoread
-
-" Lines with equal indent form a fold.
-set foldmethod=indent
-set foldlevel=1
-set foldnestmax=10
-" Open all folds by default
+silent! colorscheme gruvbox
+"}}}
+"
+" ================ Turn Off Swap Files ============== {{{
+"
+set nobackup
+set noswapfile
+set nowb
+" }}}
+"
+" ================ Persistent Undo ================== {{{
+"
+" Keep undo history across sessions, by storing in file
+silent !mkdir ~/.vim/backups > /dev/null 2>&1
+set undodir=~/.vim/backups
+set undofile
+" }}}
+"
+" ================ Indentation ====================== {{{
+"
+set colorcolumn=80
+set expandtab
+set foldmethod=syntax
 set nofoldenable
+set shiftwidth=2
+set smartindent
+set softtabstop=2
+set tabstop=2
+" }}}
+"
+" ================ Auto commands ====================== {{{
+"
+augroup vimrc
+  autocmd!
+augroup END
 
-set undofile                    " Save undo's after file closes
-set undodir=~/.vim/undo         " where to save undo histories
-set undolevels=1000             " How many undos
-set undoreload=10000            " number of lines to save for undo
+autocmd vimrc BufReadPost,BufWritePost * Neomake                                " Run NeoMake on read and write operations
+autocmd vimrc BufWritePost .vimrc so $MYVIMRC                                   " Reload .vimrc on save
+autocmd vimrc FocusGained,BufEnter * checktime                                  " Refresh file when vim gets focus
+autocmd vimrc InsertEnter * :set nocul                                          " Remove cursorline highlight
+autocmd vimrc InsertLeave * :set cul                                            " Add cursorline highlight in normal mode
 
-set vb                          " disable alert sound
-set showcmd                     " display incomplete commands
-set history=100                 " a ton of history
-
-" Default shell and shell syntax and source ~/.bash_profile
-set shell=/bin/sh
-" let g:is_bash=1
-
-" Whitespace
-set tabstop=2 shiftwidth=2      " a tab is two spaces
-set expandtab                   " use spaces, not tabs
-set backspace=indent,eol,start  " backspace through everything in insert mode
-
-" Searching
-set incsearch                   " incremental searching
-set ignorecase                  " searches are case insensitive...
-set smartcase                   " ... unless they contain at least one capital letter
-set scrolloff=0                 " keep a 5 line padding when moving the cursor
-
-set autoindent                  " indent on enter
-set smartindent                 " do smart indenting when starting a new line
-set shiftround                  " indent to the closest shiftwidth
-
-set switchbuf=""                " do not move focus/cursor to where the buffer is already open
-set tagbsearch                  " use binary searching for tags
-
-" The "Press ENTER or type command to continue" prompt is jarring and usually unnecessary.
-set shortmess=atI
-
-set ruler
-set cursorline
-set nowrap
-set endofline
-
-" Make it obvious where 80 characters is
-set textwidth=80
-set colorcolumn=+1
-set go-=L
-" autocmd User Rails let b:surround_{char2nr('-')} = "<% \r %>" " displays <% %> correctly
-
-" Switch between the last two files
-let g:airline_powerline_fonts = 1
-let g:airline_theme = 'gruvbox'
-let g:airline#extensions#ale#enabled = 1
-
-" ruby path for RVM
-let g:ruby_path = system('rvm current')
-let g:snipMate = {}
-let g:snipMate.scope_aliases = {}
-let g:snipMate.scope_aliases['ruby'] = 'ruby,ruby-rails,ruby-1.9'
-
-let g:buffergator_viewport_split_policy = 'B'
-let g:buffergator_sort_regime = 'mru'
-
+" }}}
+"
+" ================ Custom mappings ======================== {{{
+"
 noremap <Up> <NOP>
 noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
 
-" remove search highlighting
-nnoremap <Leader>h :noh<cr>
-" json beautifier with jq (https://github.com/stedolan/jq)
-nnoremap <Leader>z :%!jq '.'<CR>
+" Find current file in NERDTree
+nnoremap <Leader>hf :NERDTreeFind<CR>
+" Open NERDTree
+nnoremap <Space><Space> :NERDTreeToggle<CR>
+
+" Clear search highlight
+nnoremap <Leader>h :noh<CR>
+
+" Toggle buffer list
+nnoremap <C-p> :Files<CR>
+nnoremap <C-x> :Buffers<CR>
+
+" Toggle Grepper
+nnoremap <Leader>a :Grepper -tool ag<CR>
 
 " Toggle paste mode
 nmap <silent> <F4> :set invpaste<CR>:set paste?<CR>
 imap <silent> <F4> <ESC>:set invpaste<CR>:set paste?<CR>
 
-nmap <C-\> :NERDTreeFind<CR>
-" nmap <silent> <Leader><Leader> :NERDTreeToggle<CR>
-nmap <silent> <Space> :NERDTreeToggle<CR>
-
-nnoremap <Leader>fu :CtrlPFunky<Cr>
-" narrow the list down with a word under cursor
-nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
-
-" nmap ; :
-
 " Allow to copy/paste between VIM instances
 " copy the current visual selection to ~/.vbuf
-vmap <Leader>y :w! ~/.vbuf<CR>
+vmap <Leader>y :w! ~/.vbuf<CR>¬
 " copy the current line to the buffer file if no visual selection
-nmap <Leader>y :.w! ~/.vbuf<CR>
-" paste the contents of the buffer file
-nmap <Leader>p :r ~/.vbuf<CR>
-
-" open ag.vim
-nnoremap <leader>a :Ack
-
-nmap <F8> :TagbarToggle<CR>
-
-" vim-rspec mappings
-nnoremap <Leader>t :call RunCurrentSpecFile()<CR>
-nnoremap <Leader>s :call RunNearestSpec()<CR>
-nnoremap <Leader>l :call RunLastSpec()<CR>
-
-" move selected block up/down in Visual block mode
-vnoremap J :m '>+1<CR>gv=gv
-vnoremap K :m '<-2<CR>gv=gv
-
-" Plugins Settings
+nmap <Leader>y :.w! ~/.vbuf<CR>¬
+" paste the contents of the buffer file¬
+nmap <Leader>p :r ~/.vbuf<CR>¬
+" }}}
 "
-" CtrlP
-let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|bundle'
-let g:webdevicons_enable_ctrlp = 1
+" ================ Plugins setups ======================== {{{
+"
+let g:NERDTreeChDirMode = 2                                                     "Always change the root directory
+let g:NERDTreeMinimalUI = 1                                                     "Disable help text and bookmark title
+let g:NERDTreeShowHidden = 1                                                    "Show hidden files in NERDTree
+
+let g:airline_powerline_fonts = 1
+let g:airline_theme = 'gruvbox'
+
+let g:gruvbox_contrast_dark = 'soft'
 
 " vim-rest-console
 let g:vrc_curl_opts = {
@@ -250,20 +161,15 @@ let g:vrc_curl_opts = {
 " vim-gitgutter
 set updatetime=250
 
-" html2haml
-nmap <Leader>m :%!html2haml --erb 2> /dev/null<CR>:set ft=haml<CR>
-vmap <Leader>m :!html2haml --erb 2> /dev/null<CR>
+" vim-startify
+let g:startify_bookmarks = [ {'c': '~/.vimrc'}, '~/.config/fish/config.fish' ]
 
-let g:rspec_command = '!bundle exec rspec {spec}'
-let g:rspec_runner = "os_x_iterm2"
+" RSpec.vim settings
+let g:rspec_command = "!bundle exec rspec {spec}"
 
-" The Silver Searcher
-let g:ackprg = 'ag --vimgrep'
-
-" ultisnips
-let g:UltiSnipsExpandTrigger='<tab>'
-let g:UltiSnipsJumpForwardTrigger='<c-b>'
-let g:UltiSnipsJumpBackwardTrigger='<c-z>'
-
-" fzf
-nnoremap <leader>o :Files<cr>
+" RSpec.vim mappings
+map <Leader>t :call RunCurrentSpecFile()<CR>
+map <Leader>s :call RunNearestSpec()<CR>
+map <Leader>l :call RunLastSpec()<CR>
+" map <Leader>a :call RunAllSpecs()<CR>
+" }}}
