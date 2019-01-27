@@ -1,0 +1,18 @@
+---
+- hosts: all
+  tasks:
+    - homebrew:
+        name: tmux
+        state: latest
+    - homebrew:
+        name: vim
+        state: latest
+    - homebrew:
+        name: fzf
+        state: latest
+    - homebrew:
+        name: ripgrep
+        state: latest
+    - homebrew:
+        name: reattach-to-user-namespace
+        state: latest

@@ -1,4 +1,5 @@
 ---
 
-- include: 'vim.yml'
-- include: 'tmux.yml'
+- import_playbook: 'osx-brew.yml'
+- import_playbook: 'vim.yml'
+- import_playbook: 'tmux.yml'
