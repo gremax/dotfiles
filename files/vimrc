@@ -41,6 +41,7 @@ set gcr=a:blinkon500-blinkwait500-blinkoff500                                   
 set grepprg=rg\ --vimgrep                                                       " Use ripgrep for grepping
 set hidden                                                                      " Hide buffers in background
 set history=500                                                                 " Store lots of :cmdline history
+set hlsearch                                                                    " Highlight search results
 set ignorecase                                                                  " case insensitive search
 if has('nvim')
   set inccommand=nosplit                                                          " Show substitute changes immidiately in separate split
