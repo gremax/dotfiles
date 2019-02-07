@@ -21,6 +21,7 @@ Plug 'tpope/vim-rails'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 " Colorschemes
+Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'morhetz/gruvbox'
 call plug#end()
 "}}}
@@ -63,7 +64,7 @@ set tagcase=smart                                                               
 set timeoutlen=1000 ttimeoutlen=0                                               " Reduce Command timeout for faster escape and O
 set updatetime=500                                                              " Cursor hold timeout
 
-silent! colorscheme gruvbox
+silent! colorscheme dracula
 "}}}
 "
 " ================ Turn Off Swap Files ============== {{{
@@ -149,7 +150,11 @@ let g:NERDTreeMinimalUI = 1                                                     
 let g:NERDTreeShowHidden = 1                                                    "Show hidden files in NERDTree
 
 let g:airline_powerline_fonts = 1
-let g:airline_theme = 'gruvbox'
+let g:airline_theme = 'dracula'
+
+" dracula theme
+let g:dracula_italic = 0
+let g:dracula_colorterm = 0
 
 let g:gruvbox_contrast_dark = 'soft'
 
