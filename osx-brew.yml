@@ -16,3 +16,6 @@
     - homebrew:
         name: reattach-to-user-namespace
         state: latest
+    - homebrew:
+        name: the_silver_searcher
+        state: latest
