@@ -10,7 +10,6 @@ Plug 'diepm/vim-rest-console'
 Plug 'junegunn/fzf.vim'
 Plug 'mhinz/vim-grepper'
 Plug 'mhinz/vim-startify'
-Plug 'neomake/neomake'
 Plug 'scrooloose/nerdtree'
 Plug 'sheerun/vim-polyglot'
 Plug 'terryma/vim-multiple-cursors'
@@ -20,6 +19,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rails'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'w0rp/ale'
 " Colorschemes
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'morhetz/gruvbox'
@@ -42,7 +42,8 @@ set grepprg=rg\ --vimgrep                                                       
 set hidden                                                                      " Hide buffers in background
 set history=500                                                                 " Store lots of :cmdline history
 set hlsearch                                                                    " Highlight search results
-set ignorecase                                                                  " case insensitive search
+set ignorecase                                                                  " Case insensitive search
+set incsearch                                                                   " Searches incremetally as you type
 if has('nvim')
   set inccommand=nosplit                                                          " Show substitute changes immidiately in separate split
 end
@@ -105,7 +106,6 @@ augroup vimrc
   autocmd!
 augroup END
 
-autocmd vimrc BufReadPost,BufWritePost * Neomake                                " Run NeoMake on read and write operations
 autocmd vimrc BufWritePost .vimrc so $MYVIMRC                                   " Reload .vimrc on save
 autocmd vimrc FocusGained,BufEnter * checktime                                  " Refresh file when vim gets focus
 autocmd vimrc InsertEnter * :set nocul                                          " Remove cursorline highlight
@@ -178,4 +178,23 @@ map <Leader>t :call RunCurrentSpecFile()<CR>
 map <Leader>s :call RunNearestSpec()<CR>
 map <Leader>l :call RunLastSpec()<CR>
 " map <Leader>a :call RunAllSpecs()<CR>
+"
+
+" ALE
+let g:ale_lint_delay = 500
+let g:ale_lint_on_enter = 1
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_linters = {
+\   'ruby': ['rubocop'],
+\   'haml': ['hamllint'],
+\   'scss': ['scsslint']
+\}
+let g:ale_sign_column_always = 1
+let g:ale_sign_error = '✖'
+let g:ale_sign_info = '⚠'
+let g:ale_sign_offset = 1000000
+let g:ale_sign_style_error = '✖'
+let g:ale_sign_style_warning = '⚠'
+let g:ale_sign_warning = '⚠'
 " }}}
