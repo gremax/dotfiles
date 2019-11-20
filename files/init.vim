@@ -23,6 +23,8 @@ set path+=**
 "
 set colorcolumn=120
 set expandtab                                                                   " Convert tabs to spaces
+set list                                                                        " Enable listchars
+set listchars=tab:▸\ ,trail:·,eol:¬,nbsp:_,extends:❯,precedes:❮                 " Set trails for tabs and space
 set nofoldenable                                                                " Disable folding by default
 set shiftround                                                                  " When shifting lines, round the indentation to the nearest multiple of 'shiftwidth'
 set shiftwidth=2                                                                " When shifting, indent using four spaces
