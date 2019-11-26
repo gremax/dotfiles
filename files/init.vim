@@ -4,6 +4,7 @@ call plug#begin(stdpath('data') . '/plugged')
 Plug '/usr/local/opt/fzf'
 Plug 'arcticicestudio/nord-vim'
 Plug 'junegunn/fzf.vim'
+Plug 'kchmck/vim-coffee-script'
 Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'tpope/vim-commentary'
