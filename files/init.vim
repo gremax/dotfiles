@@ -8,6 +8,7 @@ Plug 'kchmck/vim-coffee-script'
 Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
 Plug 'vimwiki/vimwiki'
 call plug#end()
 "
