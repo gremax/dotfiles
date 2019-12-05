@@ -16,7 +16,7 @@ call plug#end()
 "
 " ================ General Config ==================== {{{
 "
-let g:mapleader = ","                                                           " Change leader to a comma
+let g:mapleader = ','                                                           " Change leader to a comma
 
 " set hidden                                                                      " Hide buffers in the background instead of closing them
 set path+=**
@@ -25,9 +25,11 @@ set path+=**
 "
 set colorcolumn=120
 set expandtab                                                                   " Convert tabs to spaces
+set incsearch                                                                   " Searches incremetally as you type
 set list                                                                        " Enable listchars
 set listchars=tab:▸\ ,trail:·,eol:¬,nbsp:_,extends:❯,precedes:❮                 " Set trails for tabs and space
 set nofoldenable                                                                " Disable folding by default
+set nowrap                                                                      " Disable words wrap
 set shiftround                                                                  " When shifting lines, round the indentation to the nearest multiple of 'shiftwidth'
 set shiftwidth=2                                                                " When shifting, indent using four spaces
 set smartindent
