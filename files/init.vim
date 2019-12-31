@@ -63,8 +63,8 @@ nnoremap <Leader>hf :NERDTreeFind<CR>
 "
 " [*] FZF
 "
-" Toggle git files list
-nnoremap <C-p> :GFiles<CR>
+" Toggle files list
+nnoremap <C-p> :Files<CR>
 " Toggle buffer list
 nnoremap <C-x> :Buffers<CR>
 "
@@ -74,7 +74,7 @@ nnoremap <C-x> :Buffers<CR>
 nnoremap <Leader>a :Grepper -tool ag<CR>
 "
 " [*] vim-wiki
-let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]"
+let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]"
 " 
 "
 "}}}
