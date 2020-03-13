@@ -5,6 +5,7 @@ Plug '/usr/local/opt/fzf'
 Plug 'arcticicestudio/nord-vim'
 Plug 'junegunn/fzf.vim'
 Plug 'kchmck/vim-coffee-script'
+Plug 'ledger/vim-ledger'
 Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'tpope/vim-commentary'
@@ -18,6 +19,8 @@ call plug#end()
 " ================ General Config ==================== {{{
 "
 let g:mapleader = ','                                                           " Change leader to a comma
+
+au BufNewFile,BufRead *.ldg,*.ledger setf ledger | comp ledger
 
 " set hidden                                                                      " Hide buffers in the background instead of closing them
 set path+=**
@@ -55,6 +58,10 @@ noremap <Right> <NOP>
 " Clear search highlights
 nnoremap <Leader>h :noh<CR>
 "
+"}}}
+"
+" ================ Plugins settings ======================== {{{
+"
 " [*] NerdTree
 "
 " Open NERDTree
@@ -76,6 +83,5 @@ nnoremap <Leader>a :Grepper -tool ag<CR>
 "
 " [*] vim-wiki
 let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]"
-" 
 "
 "}}}
