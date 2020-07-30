@@ -2,11 +2,14 @@
 "
 call plug#begin(stdpath('data') . '/plugged')
 Plug '/usr/local/opt/fzf'
-Plug 'arcticicestudio/nord-vim'
+Plug 'christoomey/vim-tmux-runner'
+Plug 'janko/vim-test'
 Plug 'junegunn/fzf.vim'
 Plug 'kchmck/vim-coffee-script'
+Plug 'keith/rspec.vim'
 Plug 'ledger/vim-ledger'
 Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
+Plug 'morhetz/gruvbox'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
@@ -44,7 +47,7 @@ set tabstop=2
 "
 " ================ Colors ======================== {{{
 "
-colorscheme nord                                                                " Theme
+colorscheme gruvbox                                                             " Theme
 "
 " }}}
 "
@@ -71,6 +74,7 @@ nnoremap <Leader>hf :NERDTreeFind<CR>
 "
 " [*] FZF
 "
+set rtp+=/usr/local/opt/fzf
 " Toggle files list
 nnoremap <C-p> :Files<CR>
 " Toggle buffer list
@@ -84,4 +88,16 @@ nnoremap <Leader>a :Grepper -tool ag<CR>
 " [*] vim-wiki
 let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]"
 "
+" [*] vim-test
+nmap <silent> t<C-n> :TestNearest<CR>
+nmap <silent> t<C-f> :TestFile<CR>
+nmap <silent> t<C-s> :TestSuite<CR>
+nmap <silent> t<C-l> :TestLast<CR>
+nmap <silent> t<C-g> :TestVisit<CR>
+" make test commands execute using kitty
+let test#strategy = 'vtr'
+let test#enabled_runners = ["ruby#rspec"]
+let test#ruby#rspec#executable = 'bundle exec rspec'
+"
 "}}}
+"
