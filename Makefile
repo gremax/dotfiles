@@ -9,3 +9,6 @@ tmux:
 
 vim:
 	ansible-playbook vim.yml -i local -vv -K
+
+configs:
+	ansible-playbook configs.yml -i local -vv -K
