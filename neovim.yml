@@ -1,0 +1,26 @@
+---
+- hosts: all
+  tasks:
+    - file:
+        state: directory
+        recurse: yes
+        path: ~/.config/nvim
+
+    - file:
+        state: link
+        src: ~/.dotfiles/files/{{ item }}
+        dest: ~/.config/nvim/{{ item }}
+      with_items:
+        - init.vim
+
+    - file:
+        state: directory
+        recurse: yes 
+        path: ~/.local/share/nvim/site/{{ item }}
+      with_items:
+        - autoload
+
+    - get_url:
+        force: yes
+        dest: ~/.local/share/nvim/site/autoload/plug.vim
+        url: 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'

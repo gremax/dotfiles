@@ -1,14 +1,17 @@
 all:
-	ansible-playbook all.yml -i local -vv -K
+	ansible-playbook -i local -vv all.yml
 
 osx-brew:
-	ansible-playbook osx-brew.yml -i local -vvvv -K
+	ansible-playbook -i local -vv osx-brew.yml
 
 tmux:
-	ansible-playbook tmux.yml -i local -vv -K
+	ansible-playbook -i local -vv tmux.yml
+
+neovim:
+	ansible-playbook -i local -vv neovim.yml
 
 vim:
-	ansible-playbook vim.yml -i local -vv -K
+	ansible-playbook -i local -vv vim.yml
 
 configs:
-	ansible-playbook configs.yml -i local -vv -K
+	ansible-playbook -i local -vv configs.yml
