@@ -1,6 +1,9 @@
 ---
 - hosts: all
   tasks:
-    - file: src=~/.dotfiles/files/{{ item }} dest=~/.{{ item }} state=link
+    - file:
+        state: link
+        src: ~/.dotfiles/files/{{ item }}
+        dest: ~/.{{ item }}
       with_items:
         - irbrc

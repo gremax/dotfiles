@@ -1,11 +1,17 @@
 ---
 - hosts: all
   tasks:
-    - file: src=~/.dotfiles/files/{{ item }} dest=~/.{{ item }} state=link
+    - file:
+        state: link
+        src: ~/.dotfiles/files/{{ item }}
+        dest: ~/.{{ item }}
       with_items:
         - vimrc
 
-    - file: path=~/.vim/{{ item }} state=directory recurse=Yes
+    - file:
+        state: directory
+        recurse: yes
+        path: ~/.vim/{{ item }}
       with_items:
         - autoload
 

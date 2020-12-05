@@ -8,6 +8,9 @@
         name: vim
         state: latest
     - homebrew:
+        name: neovim
+        state: latest
+    - homebrew:
         name: fzf
         state: latest
     - homebrew:
