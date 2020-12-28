@@ -3,13 +3,13 @@
 call plug#begin(stdpath('data') . '/plugged')
 Plug '/usr/local/opt/fzf'
 Plug 'christoomey/vim-tmux-runner'
+Plug 'gruvbox-community/gruvbox'
 Plug 'janko/vim-test'
 Plug 'junegunn/fzf.vim'
 Plug 'kchmck/vim-coffee-script'
 Plug 'keith/rspec.vim'
 Plug 'ledger/vim-ledger'
 Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
-Plug 'morhetz/gruvbox'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
