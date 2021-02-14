@@ -27,6 +27,10 @@ au BufNewFile,BufRead *.ldg,*.ledger setf ledger | comp ledger
 
 " set hidden                                                                      " Hide buffers in the background instead of closing them
 set path+=**
+
+set wildignore+=*/tmp/*,*.so,*.swp,*/log/*
+set wildignore+=*/node_modules/*
+
 "
 " ================ Indentation ====================== {{{
 "
