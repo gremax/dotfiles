@@ -2,6 +2,12 @@
 - hosts: all
   tasks:
     - homebrew:
+        name: git
+        state: latest
+    - homebrew:
+        name: fish
+        state: latest
+    - homebrew:
         name: tmux
         state: latest
     - homebrew:
@@ -21,4 +27,19 @@
         state: latest
     - homebrew:
         name: the_silver_searcher
+        state: latest
+    - homebrew:
+        name: translate-shell
+        state: latest
+    - homebrew:
+        name: asdf
+        state: latest
+    - homebrew:
+        name: slack
+        state: latest
+    - homebrew:
+        name: telegram
+        state: latest
+    - homebrew:
+        name: zoom
         state: latest
