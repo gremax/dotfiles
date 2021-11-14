@@ -2,6 +2,7 @@
 "
 call plug#begin(stdpath('data') . '/plugged')
 Plug '/usr/local/opt/fzf'
+Plug 'altercation/vim-colors-solarized'
 Plug 'christoomey/vim-tmux-runner'
 Plug 'gruvbox-community/gruvbox'
 Plug 'janko/vim-test'
@@ -14,6 +15,7 @@ Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rails'
+Plug 'vim-scripts/indentpython.vim'
 Plug 'vimwiki/vimwiki'
 call plug#end()
 "
@@ -24,6 +26,14 @@ call plug#end()
 let g:mapleader = ','                                                           " Change leader to a comma
 
 au BufNewFile,BufRead *.ldg,*.ledger setf ledger | comp ledger
+au BufNewFile,BufRead *.py
+    \ set tabstop=4 |
+    \ set softtabstop=4 |
+    \ set shiftwidth=4 |
+    \ set textwidth=79 |
+    \ set expandtab |
+    \ set autoindent |
+    \ set fileformat=unix |
 
 " set hidden                                                                      " Hide buffers in the background instead of closing them
 set path+=**
@@ -46,12 +56,21 @@ set shiftwidth=2                                                                
 set smartindent
 set softtabstop=2
 set tabstop=2
+
+" Enable folding
+set foldmethod=indent
+set foldlevel=99
 "
 " }}}
 "
 " ================ Colors ======================== {{{
 "
-colorscheme gruvbox                                                             " Theme
+if $TERM_PROGRAM == 'Apple_Terminal' || $TERM_PROGRAM == 'tmux'
+  set background=light
+else
+  set background=dark
+endif
+colorscheme solarized                                                           " Theme
 "
 " }}}
 "
