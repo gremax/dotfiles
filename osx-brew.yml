@@ -43,3 +43,6 @@
     - homebrew:
         name: zoom
         state: latest
+    - homebrew:
+        name: magic-wormhole
+        state: latest
