@@ -3,7 +3,10 @@
 call plug#begin(stdpath('data') . '/plugged')
 Plug '/usr/local/opt/fzf'
 Plug 'altercation/vim-colors-solarized'
+Plug 'catppuccin/nvim', {'as': 'catppuccin'}
 Plug 'christoomey/vim-tmux-runner'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'github/copilot.vim'
 Plug 'gruvbox-community/gruvbox'
 Plug 'janko/vim-test'
 Plug 'junegunn/fzf.vim'
@@ -65,12 +68,9 @@ set foldlevel=99
 "
 " ================ Colors ======================== {{{
 "
-if $TERM_PROGRAM == 'Apple_Terminal' || $TERM_PROGRAM == 'tmux'
-  set background=light
-else
-  set background=dark
-endif
-colorscheme solarized                                                           " Theme
+let g:catppuccin_flavour = "macchiato" " latte, frappe, macchiato, mocha
+
+colorscheme catppuccin
 "
 " }}}
 "
@@ -110,6 +110,17 @@ nnoremap <Leader>a :Grepper -tool ag<CR>
 "
 " [*] vim-wiki
 let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]"
+"
+" [*] vim-go
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_types = 1
+"
 "
 " [*] vim-test
 nmap <silent> t<C-n> :TestNearest<CR>
