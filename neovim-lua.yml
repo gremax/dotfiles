@@ -1,0 +1,23 @@
+---
+- hosts: all
+  tasks:
+    - file:
+        state: directory
+        path: ~/.config/
+
+    - file:
+        state: link
+        src: ~/.dotfiles/{{ item }}
+        dest: ~/.config/{{ item }}
+      with_items:
+        - nvim
+
+    - file:
+        state: directory
+        recurse: yes 
+        path: ~/.local/share/nvim/site/pack/packer/start/
+
+    - ansible.builtin.git:
+        repo: https://github.com/wbthomason/packer.nvim
+        dest: ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+        depth: 1
