@@ -10,6 +10,9 @@ tmux:
 neovim:
 	ansible-playbook -i local -vv neovim.yml
 
+neovim-lua:
+	ansible-playbook -i local -vv neovim-lua.yml
+
 vim:
 	ansible-playbook -i local -vv vim.yml
 
