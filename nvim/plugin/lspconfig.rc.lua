@@ -31,7 +31,7 @@ plug.gopls.setup {
   capabilities = capabilities,
 }
 
-plug.sumneko_lua.setup {
+plug.lua_ls.setup {
   on_attach = on_attach,
   capabilities = capabilities,
   settings = {
