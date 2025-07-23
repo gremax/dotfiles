@@ -1,23 +1,27 @@
 ---
 - hosts: all
   tasks:
-    - file:
+    - name: Create config directory if it doesn't exist
+      ansible.builtin.file:
         state: directory
-        path: ~/.config/
+        path: "{{ ansible_user_dir }}/.config/"
 
-    - file:
+    - name: Symlink Neovim Lua configuration
+      ansible.builtin.file:
         state: link
-        src: ~/.dotfiles/{{ item }}
-        dest: ~/.config/{{ item }}
-      with_items:
+        src: "{{ ansible_user_dir }}/.dotfiles/{{ item }}"
+        dest: "{{ ansible_user_dir }}/.config/{{ item }}"
+      loop:
         - nvim
 
-    - file:
+    - name: Create Neovim package directory for Packer
+      ansible.builtin.file:
         state: directory
-        recurse: yes 
-        path: ~/.local/share/nvim/site/pack/packer/start/
+        path: "{{ ansible_user_dir }}/.local/share/nvim/site/pack/packer/start/"
+        recurse: yes
 
-    - ansible.builtin.git:
+    - name: Clone packer.nvim repository
+      ansible.builtin.git:
         repo: https://github.com/wbthomason/packer.nvim
-        dest: ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+        dest: "{{ ansible_user_dir }}/.local/share/nvim/site/pack/packer/start/packer.nvim"
         depth: 1

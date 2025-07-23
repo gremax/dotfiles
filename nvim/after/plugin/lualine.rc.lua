@@ -5,7 +5,7 @@ if (not status) then return end
 plug.setup {
   options = {
     icons_enabled = true,
-    theme = 'dracula',
+    theme = 'gruvbox_dark',
     disabled_filetypes = {}
   },
   sections = {

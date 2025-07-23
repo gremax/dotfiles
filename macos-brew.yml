@@ -1,0 +1,38 @@
+---
+- hosts: all
+  tasks:
+    - name: Update Homebrew
+      community.general.homebrew:
+        update_homebrew: yes
+        upgrade_all: yes
+
+    - name: Install Homebrew packages
+      community.general.homebrew:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - git
+        - fish
+        - tmux
+        - vim
+        - neovim
+        - fzf
+        - ripgrep
+        - reattach-to-user-namespace
+        - the_silver_searcher
+        - translate-shell
+        - asdf
+        - magic-wormhole
+        - lua-language-server
+
+    - name: Install Homebrew cask applications
+      community.general.homebrew_cask:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - element
+        - slack
+        - zoom
+
+    - name: Cleanup Homebrew cache and outdated versions
+      ansible.builtin.shell: "brew cleanup"

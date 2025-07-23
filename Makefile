@@ -1,8 +1,8 @@
 all:
 	ansible-playbook -i local -vv all.yml
 
-osx-brew:
-	ansible-playbook -i local -vv osx-brew.yml
+macos-brew:
+	ansible-playbook -i local -vv macos-brew.yml
 
 tmux:
 	ansible-playbook -i local -vv tmux.yml

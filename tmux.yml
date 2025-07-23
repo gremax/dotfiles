@@ -1,13 +1,16 @@
 ---
 - hosts: all
   tasks:
-    - file:
+    - name: Symlink tmux configuration
+      ansible.builtin.file:
         state: link
-        src: ~/.dotfiles/files/{{ item }}
-        dest: ~/.{{ item }}
-      with_items:
+        src: "{{ ansible_user_dir }}/.dotfiles/files/{{ item }}"
+        dest: "{{ ansible_user_dir }}/.{{ item }}"
+      loop:
         - tmux.conf
 
-    - git:
+    - name: Clone tmux plugin manager (TPM)
+      ansible.builtin.git:
         repo: https://github.com/tmux-plugins/tpm
-        dest: ~/.tmux/plugins/tpm
+        dest: "{{ ansible_user_dir }}/.tmux/plugins/tpm"
+        version: master

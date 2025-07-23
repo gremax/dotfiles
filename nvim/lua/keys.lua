@@ -15,7 +15,7 @@ map('', '<Right>', [[<NOP>]], {})
 map('n', '<Leader>h', [[:noh<CR>]], opts)
 
 -- Tabs
-map('n', '<Leader>t', [[:tabedit<CR>]], opts)
+map('n', 'tt', [[:tabnew<CR>]], opts)
 
 -- Toggle nvim-tree
 map('n', '<Space><Space>', [[:NvimTreeToggle<CR>]], opts)

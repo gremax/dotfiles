@@ -7,7 +7,7 @@ local on_attach = function(client, _)
   if client.server_capabilities.documentFormattingProvider then
     vim.api.nvim_command [[augroup Format]]
     vim.api.nvim_command [[autocmd! * <buffer>]]
-    vim.api.nvim_command [[autocmd! BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync()]]
+    vim.api.nvim_command [[autocmd! BufWritePre <buffer> lua vim.lsp.buf.format()]]
     vim.api.nvim_command [[augroup END]]
   end
 end
@@ -15,8 +15,6 @@ end
 -- plug.solargraph.setup({
 --   on_attach = on_attach
 -- })
-
-
 
 local lsp_flags = {
   debounce_text_changes = 250,
@@ -44,8 +42,8 @@ plug.lua_ls.setup {
   },
 }
 
--- local caps = vim.lsp.protocol.make_client_capabilities()
--- caps.textDocument.completion.completionItem.snippetSupport = true
+local caps = vim.lsp.protocol.make_client_capabilities()
+caps.textDocument.completion.completionItem.snippetSupport = true
 
 plug.emmet_ls.setup {
   -- on_attach = on_attach,

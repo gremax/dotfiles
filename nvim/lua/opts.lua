@@ -4,7 +4,7 @@ local cmd = vim.api.nvim_command
 local autocmd = vim.api.nvim_create_autocmd
 
 -- [[ Context ]]
-opt.colorcolumn = '80' -- str:  Show col for max line length
+opt.colorcolumn = '80' -- str: Show col for max line length
 opt.number = true -- bool: Show line numbers
 opt.relativenumber = true -- bool: Show relative line numbers
 opt.scrolloff = 4 -- int:  Min num lines of context
@@ -37,7 +37,8 @@ opt.fileencoding = 'utf8' -- str:  File encoding to use
 opt.syntax = 'ON' -- str:  Allow syntax highlighting
 opt.termguicolors = true -- bool: If term supports ui color then enable
 opt.cursorline = true -- bool: Highlight the current line
-cmd [[colorscheme dracula]] -- cmd:  Set the colorscheme
+opt.background = 'dark'
+cmd [[colorscheme gruvbox]] -- cmd:  Set the colorscheme
 
 -- [[ Search ]]
 opt.ignorecase = true -- bool: Ignore case in search patterns
