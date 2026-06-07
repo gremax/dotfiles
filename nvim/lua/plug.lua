@@ -20,7 +20,6 @@ return require('packer').startup(function(use)
   use { 'L3MON4D3/LuaSnip' }
   use { 'aca/emmet-ls' }
   use { 'ellisonleao/gruvbox.nvim' }
-  use { 'github/copilot.vim' }
   use { 'hrsh7th/cmp-buffer' }
   use { 'hrsh7th/cmp-nvim-lsp' }
   use { 'hrsh7th/nvim-cmp' }
@@ -42,6 +41,7 @@ return require('packer').startup(function(use)
   use { 'vim-ruby/vim-ruby', ft = { 'ruby' }, config = function() require('plugins.ruby') end }
   use { 'vimwiki/vimwiki' }
   use { 'windwp/nvim-autopairs' }
+  use { 'windwp/nvim-ts-autotag' }
   if packer_bootstrap then
     require('packer').sync()
   end

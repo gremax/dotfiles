@@ -1,60 +1,39 @@
-local status, plug = pcall(require, 'lspconfig')
-if (not status) then return end
-
-local protocol = require('vim.lsp.protocol')
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 local on_attach = function(client, _)
   if client.server_capabilities.documentFormattingProvider then
-    vim.api.nvim_command [[augroup Format]]
-    vim.api.nvim_command [[autocmd! * <buffer>]]
-    vim.api.nvim_command [[autocmd! BufWritePre <buffer> lua vim.lsp.buf.format()]]
-    vim.api.nvim_command [[augroup END]]
+    vim.api.nvim_create_autocmd('BufWritePre', {
+      buffer = 0,
+      callback = function() vim.lsp.buf.format() end,
+    })
   end
 end
 
--- plug.solargraph.setup({
---   on_attach = on_attach
--- })
-
-local lsp_flags = {
-  debounce_text_changes = 250,
-}
-
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
-plug.quick_lint_js.setup {}
-plug.gopls.setup {
-  on_attach = on_attach,
-  flags = lsp_flags,
-  capabilities = capabilities,
-}
-
-plug.lua_ls.setup {
+vim.lsp.config('*', {
   on_attach = on_attach,
   capabilities = capabilities,
+})
+
+vim.lsp.config('gopls', {
+  flags = { debounce_text_changes = 250 },
+})
+
+vim.lsp.config('lua_ls', {
   settings = {
     Lua = {
-      -- runtime = { version = 'LuaJIT', },
-      diagnostics = { globals = { 'vim' }, },
-      workspace = { library = vim.api.nvim_get_runtime_file('', true), },
-      -- telemetry = { enable = false, },
+      diagnostics = { globals = { 'vim' } },
+      workspace = { library = vim.api.nvim_get_runtime_file('', true) },
     },
   },
-}
+})
 
-local caps = vim.lsp.protocol.make_client_capabilities()
-caps.textDocument.completion.completionItem.snippetSupport = true
-
-plug.emmet_ls.setup {
-  -- on_attach = on_attach,
-  capabilities = capabilities,
+vim.lsp.config('emmet_ls', {
   filetypes = { 'html', 'typescriptreact', 'javascriptreact', 'css', 'sass', 'scss', 'less', 'gohtmltmpl' },
   init_options = {
     html = {
-      options = {
-        -- For possible options, see: https://github.com/emmetio/emmet/blob/master/src/config.ts#L79-L267
-        ['bem.enabled'] = true,
-      },
+      options = { ['bem.enabled'] = true },
     },
-  }
-}
+  },
+})
+
+vim.lsp.enable({ 'quick_lint_js', 'gopls', 'lua_ls', 'emmet_ls' })
