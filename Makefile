@@ -16,5 +16,8 @@ neovim-lua:
 vim:
 	ansible-playbook -i local -vv vim.yml
 
+kitty:
+	ansible-playbook -i local -vv kitty.yml
+
 configs:
 	ansible-playbook -i local -vv configs.yml

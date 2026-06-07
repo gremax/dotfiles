@@ -1,0 +1,13 @@
+---
+- hosts: all
+  tasks:
+    - name: Create config directory if it doesn't exist
+      ansible.builtin.file:
+        state: directory
+        path: "{{ ansible_user_dir }}/.config/"
+
+    - name: Symlink Kitty configuration
+      ansible.builtin.file:
+        state: link
+        src: "{{ ansible_user_dir }}/.dotfiles/files/kitty"
+        dest: "{{ ansible_user_dir }}/.config/kitty"
