@@ -1,0 +1,65 @@
+---
+- hosts: all
+  tasks:
+    - name: Tap agterm
+      community.general.homebrew_tap:
+        name: umputun/apps
+        state: present
+
+    - name: Install agterm
+      community.general.homebrew_cask:
+        name: umputun/apps/agterm
+        state: present
+
+    # everything a keymap chord launches; neovim and tmux are in macos-brew.yml too, so `make agterm` works alone
+    - name: Install TUI tools bound in the keymap
+      community.general.homebrew:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - lazygit
+        - yazi
+        - neovim
+        - tmux
+        - neomutt
+        - irssi
+        - khal
+
+    - name: Create agterm config directory
+      ansible.builtin.file:
+        state: directory
+        path: "{{ ansible_user_dir }}/.config/agterm"
+
+    # files one by one: agterm keeps its own agent-status/ in the same directory
+    - name: Symlink agterm configuration
+      ansible.builtin.file:
+        state: link
+        force: true
+        src: "{{ ansible_user_dir }}/.dotfiles/files/agterm/{{ item }}"
+        dest: "{{ ansible_user_dir }}/.config/agterm/{{ item }}"
+      loop:
+        - keymap.conf
+        - hooks.conf
+        - ghostty.conf
+        - restore-denylist.conf
+        - scripts
+
+    # every Claude config dir that exists: ~/.claude, ~/.claude-personal, ~/.claude-work
+    - name: Merge agterm hooks into Claude Code settings
+      ansible.builtin.command: "{{ ansible_user_dir }}/.config/agterm/scripts/install-claude-hooks.sh"
+      register: claude_hooks
+      changed_when: false
+
+    - name: Show Claude hooks result
+      ansible.builtin.debug:
+        var: claude_hooks.stdout_lines
+
+    # agtermctl needs a running agterm; on a fresh machine run `make agterm` again after the first launch
+    - name: Apply agterm settings
+      ansible.builtin.command: "/Applications/agterm.app/Contents/MacOS/agtermctl {{ item }}"
+      loop:
+        - restore mode rerun
+        - theme set "Gruvbox Dark"
+      register: agterm_settings
+      changed_when: false
+      failed_when: false

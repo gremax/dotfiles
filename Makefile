@@ -21,3 +21,6 @@ kitty:
 
 configs:
 	ansible-playbook -i local -vv configs.yml
+
+agterm:
+	ansible-playbook -i local -vv agterm.yml
