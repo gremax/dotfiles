@@ -21,3 +21,8 @@ kitty:
 
 configs:
 	ansible-playbook -i local -vv configs.yml
+
+HOST ?= grem.ax
+
+server:
+	ansible-playbook -i '$(HOST),' -vv server.yml

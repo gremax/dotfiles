@@ -31,3 +31,11 @@ Only first time run into vim:
 ```
 :PlugInstall
 ```
+
+## Server
+
+tmux and a plugin-free Neovim (`nvim-server/`) on a server, from this laptop:
+
+```
+cd ~/.dotfiles && make server HOST=grem.ax
+```
