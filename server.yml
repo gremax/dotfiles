@@ -24,10 +24,15 @@
         dest: "{{ ansible_user_dir }}/.tmux/plugins/tpm"
         version: master
 
-    - name: Install tmux plugins
-      ansible.builtin.command:
-        cmd: "{{ ansible_user_dir }}/.tmux/plugins/tpm/bin/install_plugins"
-        creates: "{{ ansible_user_dir }}/.tmux/plugins/tmux-gruvbox"
+    # TPM's own installer needs a running tmux that has loaded the config, so clone the plugins
+    # the way it would. The list follows the @plugin lines in files/tmux.conf.
+    - name: Clone tmux plugins
+      ansible.builtin.git:
+        repo: "https://github.com/{{ item }}"
+        dest: "{{ ansible_user_dir }}/.tmux/plugins/{{ item | basename }}"
+      loop:
+        - tmux-plugins/tmux-sensible
+        - egel/tmux-gruvbox
 
     - name: Create config directory if it doesn't exist
       ansible.builtin.file:
